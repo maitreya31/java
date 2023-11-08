@@ -1,0 +1,24 @@
+
+I apologize for the error in my previous response. After a thorough review of the code, I believe the issue lies in the addition1() method of the Burger class. The method is currently expecting the topping name and price to be passed as separate arguments. However, the customizeBurger() function is passing the topping name and price in a single String object.
+
+To address this inconsistency, you need to modify the addition1() method to accept a single String object containing both the topping name and price separated by a colon (:). Then, within the method, you can split the string using the split() method to extract the topping name and price.
+
+Here's the updated code for the addition1() method:
+
+public void addition1(String extraTopping) {
+    String[] toppingInfo = extraTopping.split(":");
+    if (toppingInfo.length != 2) {
+        System.out.println("Invalid topping format. Please enter topping name and price separated by a colon (:)");
+        return;
+    }
+
+    String toppingName = toppingInfo[0].trim();
+    double toppingPrice = Double.parseDouble(toppingInfo[1]);
+
+    burger.addition1(toppingName, toppingPrice);
+}
+
+
+This code now handles the input containing both the topping name and price. It splits the string using the split() method and extracts the topping name and price. If the string doesn't have the expected format, an error message is displayed. Otherwise, the topping is added to the burger using the addition1() method.
+
+With this change, the customizeBurger() function should now work correctly, allowing the user to input extra toppings for their burger.
