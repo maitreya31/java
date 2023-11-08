@@ -1,0 +1,25 @@
+
+Based on the provided code, the customizeBurger() function is not properly handling the input for extra topping names. The System.out.print() statement is used to display a message asking the user to enter the topping name, but it's not storing the user's input.
+
+To fix this issue, you need to modify the code to capture the user's input for the topping name. Here's the updated code for the customizeBurger() function:
+
+private static void customizeBurger(Burger burger, Scanner scanner) {
+    System.out.println("Customize your burger by adding extra toppings (Enter 'done' to finish):");
+
+    while (true) {
+        System.out.print("Enter extra topping name: ");
+        String extraToppingName = scanner.nextLine();
+
+        if (extraToppingName.equalsIgnoreCase("done")) {
+            break;
+        }
+
+        System.out.print("Enter the price for the topping: ");
+        double toppingPrice = scanner.nextDouble();
+
+        scanner.nextLine(); // Consume the newline character
+        burger.addition1(extraToppingName, toppingPrice);
+    }
+}
+
+This code now captures the user's input for the topping name and stores it in the extraToppingName variable. It then proceeds to prompt for the topping price and adds the topping to the burger using the burger.addition1() method.
