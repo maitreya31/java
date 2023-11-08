@@ -1,0 +1,92 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Burger Ordering System!");
+
+        BurgerType burgerType = chooseBurgerType(scanner);
+
+        Burger burger = createBurger(burgerType, scanner);
+
+        customizeBurger(burger, scanner);
+
+        System.out.println("Your customized burger details:");
+        System.out.println("Burger Name: " + burger.getName());
+        System.out.println("Bread Type: " + burger.getBreadType());
+        System.out.println("Total Price: " + burger.itemizeBurger());
+
+        scanner.close();
+    }
+
+    private static BurgerType chooseBurgerType(Scanner scanner) {
+        System.out.println("Choose the type of burger: ");
+        System.out.println("1. Regular Burger");
+        System.out.println("2. Healthy Burger");
+        System.out.println("3. Deluxe Burger");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        switch (choice) {
+            case 1:
+                return BurgerType.REGULAR;
+            case 2:
+                return BurgerType.HEALTHY;
+            case 3:
+                return BurgerType.DELUXE;
+            default:
+                System.out.println("Invalid choice. Exiting...");
+                System.exit(1);
+        }
+        return null; // To avoid compiler warnings
+    }
+
+    private static Burger createBurger(BurgerType type, Scanner scanner) {
+        switch (type) {
+            case REGULAR:
+                System.out.print("Enter the name for your Regular Burger: ");
+                String name = scanner.nextLine();
+                System.out.print("Enter the base price: ");
+                double basePrice = scanner.nextDouble();
+                scanner.nextLine(); // Consume the newline character
+                return new Burger(name, "White bread", basePrice);
+
+            case HEALTHY:
+                System.out.print("Enter the meat type for your Healthy Burger: ");
+                String meatType = scanner.nextLine();
+                System.out.print("Enter the base price: ");
+                basePrice = scanner.nextDouble();
+                scanner.nextLine(); // Consume the newline character
+                return new HealthyBurger(meatType, basePrice);
+
+            case DELUXE:
+                return new DeluxeBurger();
+
+            default:
+                System.out.println("Invalid burger type. Exiting...");
+                System.exit(1);
+        }
+        return null; // To avoid compiler warnings
+    }
+
+    private static void customizeBurger(Burger burger, Scanner scanner) {
+        System.out.println("Customize your burger by adding extra toppings (Enter 'done' to finish):");
+
+        while (true) {
+            System.out.print("Enter extra topping name: ");
+            String extraTopping = scanner.nextLine();
+
+            if (extraTopping.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            System.out.print("Enter the price for the topping: ");
+            double price = scanner.nextDouble();
+            scanner.nextLine(); // Consume the newline character
+            burger.addition1(extraTopping, price);
+        }
+    }
+}
